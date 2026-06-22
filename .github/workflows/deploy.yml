@@ -1,0 +1,24 @@
+name: Deploy html folder to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master  # 👈 这里必须填你仓库的实际主分支名（通常是 master 或 main）
+    paths:
+      - 'html/**'  # 👈 只有当 html 文件夹内的文件变动时，才触发这个脚本
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: html # 👈 告诉脚本：把主分支里的 html 文件夹提取出来
+          branch: gh-pages # 👈 把提取出的内容，单独打包推送到 gh-pages 分支
